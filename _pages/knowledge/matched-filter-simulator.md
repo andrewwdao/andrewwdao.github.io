@@ -839,12 +839,12 @@ importance: 1
     
   <b>External links:</b><br>    
   (1) <a href="https://www.youtube.com/watch?v=NIer_kITelc">Matched filter theory (German)</a><br>  
-  (2) <a href="http://grauonline.de/wordpress/?page_id=364">More explanations on the matched filter and this simulator.</a><br>
-  (3) <a href="http://www.grauonline.de/alexwww/ardumower/oscilloscope/oscilloscope.html">Sound card-based oscilloscope (includes matched filter)</a><br>
-  (4) <a href="http://vimeo.com/33433158">Video explaining the matched filter visually.</a><br>
-  (5) <a href="http://www.radartutorial.eu/10.processing/Matched%20Filter.de.html">Matched Filter in der Nachrichtentechnik.</a><br>
-  (6) <a href="http://www.arc.id.au/FilterDesign.html">FIR filter design</a><br>
-  (7) <a href="http://www.developer.com/java/other/article.php/3487996/Convolution-and-Matched-Filtering-in-Java.htm">Matched filter in Java</a><br>  
+  (2) <a href="https://grauonline.de/wordpress/?page_id=364">More explanations on the matched filter and this simulator.</a><br>
+  (3) <a href="https://www.grauonline.de/alexwww/ardumower/oscilloscope/oscilloscope.html">Sound card-based oscilloscope (includes matched filter)</a><br>
+  (4) <a href="https://vimeo.com/33433158">Video explaining the matched filter visually.</a><br>
+  (5) <a href="https://www.radartutorial.eu/10.processing/Matched%20Filter.de.html">Matched Filter in der Nachrichtentechnik.</a><br>
+  (6) <a href="https://www.arc.id.au/FilterDesign.html">FIR filter design</a><br>
+  (7) <a href="https://www.developer.com/java/other/article.php/3487996/Convolution-and-Matched-Filtering-in-Java.htm">Matched filter in Java</a><br>  
   
   <br>
   <b>Algorithm (C code)</b><br>
