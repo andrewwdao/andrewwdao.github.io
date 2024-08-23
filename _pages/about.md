@@ -1,8 +1,8 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+subtitle: <a href='https://sites.google.com/view/minh-an-dao'>Current website</a>. Carlton, VIC 3053. It's a leap of faith.
 
 profile:
   align: right

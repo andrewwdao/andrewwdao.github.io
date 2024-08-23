@@ -15,15 +15,14 @@ importance: 1
   <meta name="keywords" content="DSP, Digital Signal Processing, Digital Filter Design, FIR Filter, Matched Filter, Optimum Filter, Optimalfilter">
 
 
-  <script type="text/javascript" src="./js/Cango-3v33.js.download"></script>
-  <script type="text/javascript" src="./js/firFilter-08.js.download"></script>
-  <script type="text/javascript" src="./js/dspUtils-10.js.download"></script>
-  <script type="text/javascript" src="./js/CangoAxes-0v20.js.download"></script>
+  <script type="text/javascript" src="./js/Cango-3v33.js"></script>
+  <script type="text/javascript" src="./js/firFilter-08.js"></script>
+  <script type="text/javascript" src="./js/dspUtils-10.js"></script>
+  <script type="text/javascript" src="./js/CangoAxes-0v20.js"></script>
   
   <link type="text/css" href="./js/jquery-ui-1.8.17.custom.css" rel="stylesheet">	
-	<script type="text/javascript" src="./js/jquery-1.7.1.min.js.download"></script>
-	<script type="text/javascript" src="./js/jquery-ui-1.8.17.custom.min.js.download"></script>
-    
+	<script type="text/javascript" src="./js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="./js/jquery-ui-1.8.17.custom.min.js"></script>
 
   <script type="text/javascript">
   
@@ -288,8 +287,7 @@ importance: 1
     }
     
     // DBPSK modulation (binary phase-shift keying)
-    // http://en.wikipedia.org/wiki/Phase-shift_keying#Binary_phase-shift_keying_.28BPSK.29
-    // http://www.itwissen.info/definition/lexikon/DBPSK-differential-binary-phase-shift-keying.html 
+    // https://en.wikipedia.org/wiki/Phase-shift_keying#Binary_phase-shift_keying_.28BPSK.29
     // 1 => phase change 180 degree
     // 0 => phase change 0 degree 
     function DBPSK(seq){
@@ -727,8 +725,7 @@ importance: 1
 
 <body data-new-gr-c-s-check-loaded="14.1031.0" data-gr-ext-installed="">  
    <b>Matched filter simulator </b> <br>
-   This simulator was developed as part of the <a href="http://www.ardumower.de/index.php/en/">Ardumower project</a>. It allows you to try
-   out the matched filter (aka optimum filter) with pre-defined (or your own) sample signals, to add noise to it and finally apply a matched filter against the generated (noisy) signal and your samples.<br><br>  
+   This simulator was developed to try out the matched filter (aka optimum filter) with pre-defined (or your own) sample signals, to add noise to it and finally apply a matched filter against the generated (noisy) signal and your samples.<br><br>  
    <b>Quick start</b> (you can find more detailed instructions at the bottom)<br>
    1. Choose an input signal (slider <b>'Example signals'</b> at the right), e.g. choose 'pseudonoise4_nrz'.<br>
    2. At the left top graph, you can see the generated signal and at the left bottom graph, you can see the matched filter output. <br>
@@ -841,7 +838,6 @@ importance: 1
   (1) <a href="https://www.youtube.com/watch?v=NIer_kITelc">Matched filter theory (German)</a><br>  
   (2) <a href="https://grauonline.de/wordpress/?page_id=364">More explanations on the matched filter and this simulator.</a><br>
   (3) <a href="https://www.grauonline.de/alexwww/ardumower/oscilloscope/oscilloscope.html">Sound card-based oscilloscope (includes matched filter)</a><br>
-  (4) <a href="https://vimeo.com/33433158">Video explaining the matched filter visually.</a><br>
   (5) <a href="https://www.radartutorial.eu/10.processing/Matched%20Filter.de.html">Matched Filter in der Nachrichtentechnik.</a><br>
   (6) <a href="https://www.arc.id.au/FilterDesign.html">FIR filter design</a><br>
   (7) <a href="https://www.developer.com/java/other/article.php/3487996/Convolution-and-Matched-Filtering-in-Java.htm">Matched filter in Java</a><br>  
