@@ -1,28 +1,21 @@
----
-layout: page
-title: Matched Filter Simulator
-permalink: /knowledge/matched-filter-simulator/
-description: A software-based matched filter simulator to visualise the act of match filtering.
-category: knowledge
-importance: 1
----
-
-
 <!-- saved from url=(0061)http://www.grauonline.de/alexwww/ardumower/filter/filter.html -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<html>
+<head>
   <title>Matched filter simulator (software-based)</title>
-  
-  <meta name="keywords" content="DSP, Digital Signal Processing, Digital Filter Design, FIR Filter, Matched Filter, Optimum Filter, Optimalfilter">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="keywords" content="DSP, Digital Signal Processing, Digital Filter Design, FIR Filter, Matched Filter, Optimum Filter, Optimalfilter" />
 
 
-  <script type="text/javascript" src="./js/Cango-3v33.js"></script>
-  <script type="text/javascript" src="./js/firFilter-08.js"></script>
-  <script type="text/javascript" src="./js/dspUtils-10.js"></script>
-  <script type="text/javascript" src="./js/CangoAxes-0v20.js"></script>
+  <script type="text/javascript" src="/assets/js/matched-filter/Cango-3v33.js"></script>
+  <script type="text/javascript" src="/assets/js/matched-filter/firFilter-08.js"></script>
+  <script type="text/javascript" src="/assets/js/matched-filter/dspUtils-10.js"></script>
+  <script type="text/javascript" src="/assets/js/matched-filter/CangoAxes-0v20.js"></script>
   
-  <link type="text/css" href="./js/jquery-ui-1.8.17.custom.css" rel="stylesheet">	
-	<script type="text/javascript" src="./js/jquery-1.7.1.min.js"></script>
-	<script type="text/javascript" src="./js/jquery-ui-1.8.17.custom.min.js"></script>
+  <link type="text/css" href="/assets/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />	
+	<script type="text/javascript" src="/assets/js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="/assets/js/jquery-ui-1.8.17.custom.min.js"></script>
+    
 
   <script type="text/javascript">
   
@@ -287,7 +280,8 @@ importance: 1
     }
     
     // DBPSK modulation (binary phase-shift keying)
-    // https://en.wikipedia.org/wiki/Phase-shift_keying#Binary_phase-shift_keying_.28BPSK.29
+    // http://en.wikipedia.org/wiki/Phase-shift_keying#Binary_phase-shift_keying_.28BPSK.29
+    // http://www.itwissen.info/definition/lexikon/DBPSK-differential-binary-phase-shift-keying.html 
     // 1 => phase change 180 degree
     // 0 => phase change 0 degree 
     function DBPSK(seq){
@@ -720,12 +714,13 @@ importance: 1
     });
   </script>
 
-<style data-emotion="css"></style></head>
+</head>
 
 
-<body data-new-gr-c-s-check-loaded="14.1031.0" data-gr-ext-installed="">  
+<body>  
    <b>Matched filter simulator </b> <br>
-   This simulator was developed to try out the matched filter (aka optimum filter) with pre-defined (or your own) sample signals, to add noise to it and finally apply a matched filter against the generated (noisy) signal and your samples.<br><br>  
+   This simulator was developed as part of the <a href="http://www.ardumower.de/index.php/en/">Ardumower project</a>. It allows you to try
+   out the matched filter (aka optimum filter) with pre-defined (or your own) sample signals, to add noise to it and finally apply a matched filter against the generated (noisy) signal and your samples.<br><br>  
    <b>Quick start</b> (you can find more detailed instructions at the bottom)<br>
    1. Choose an input signal (slider <b>'Example signals'</b> at the right), e.g. choose 'pseudonoise4_nrz'.<br>
    2. At the left top graph, you can see the generated signal and at the left bottom graph, you can see the matched filter output. <br>
@@ -734,73 +729,73 @@ importance: 1
    Signal (optional FIR-filtered, amplified)
    
    <div class="scrnSignal">  
-      <canvas id="grph1" width="550" height="190"></canvas>
+      <canvas id="grph1" width="550" height="190" ></canvas>
    </div>
    
    FFT  
    <div class="scrnFFT">
-      <canvas id="grph2" width="550" height="190"></canvas>
+      <canvas id="grph2" width="550" height="190" ></canvas>
    </div>
          
    Matched filter  
    <div class="scrnMatch">
-      <canvas id="grph3" width="550" height="190"></canvas>
+      <canvas id="grph3" width="550" height="190" ></canvas>
    </div>   
    
       
   <div style="position: absolute; top: 180; left: 550;">
     <div class="blkTop" style="height:20em">
-      <div class="lSignalList">Signal samples (2)</div>
+      <div class="lSignalList">Signal samples</div>
       <textarea id="signalList" rows="15" cols="30"></textarea>
     </div>
   </div>
   
   <div style="position: absolute; top: 480; left: 550;">
     <div class="blkTop" style="height:20em">
-      <div class="lfilterList">FIR filter (c0)</div>
+      <div class="lfilterList">FIR filter</div>
       <textarea id="filterList" rows="15" cols="30"></textarea>
     </div>
   </div>
   
   
   <div style="position: absolute; top: 180; left: 850; width: 300">
-    <form id="panelSA1" class="panel" action="http://www.grauonline.de/alexwww/ardumower/filter/filter.html#">
-                        <input type="checkbox" id="cToggle" class="ui-helper-hidden-accessible"><label id="lToggle" for="cToggle" aria-pressed="false" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Signal is ON</span></label><div class="lSignal">Example signals (square_bipolar)</div><div id="sSignal" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a class="ui-slider-handle ui-state-default ui-corner-all" href="http://www.grauonline.de/alexwww/ardumower/filter/filter.html#" style="left: 0%;">0</a></div><br>One signal sample width (of sample rate)                              
-                            <div id="sSampleWidth" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a class="ui-slider-handle ui-state-default ui-corner-all" href="http://www.grauonline.de/alexwww/ardumower/filter/filter.html#" style="left: 9.09091%;">10</a></div><br>Noise 
-                            <input type="checkbox" id="cNoise" class="ui-helper-hidden-accessible"><label for="cNoise" aria-pressed="false" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Cycle</span></label><div id="sNoise" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a class="ui-slider-handle ui-state-default ui-corner-all" href="http://www.grauonline.de/alexwww/ardumower/filter/filter.html#" style="left: 0%;">0</a></div><br><br><div class="lFilter">Example filter (none)</div><div id="sFilter" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a class="ui-slider-handle ui-state-default ui-corner-all" href="http://www.grauonline.de/alexwww/ardumower/filter/filter.html#" style="left: 0%;">0</a></div><br><b> - OR - </b><br><br>New filter bandpass start 
-                            <div id="sFa" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a class="ui-slider-handle ui-state-default ui-corner-all" href="http://www.grauonline.de/alexwww/ardumower/filter/filter.html#" style="left: 0%;"></a></div><br>New filter bandpass stop 
-                            <div id="sFb" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a class="ui-slider-handle ui-state-default ui-corner-all" href="http://www.grauonline.de/alexwww/ardumower/filter/filter.html#" style="left: 0%;"></a></div><br><br><br>Amplify (-1..1)
-                            <input type="checkbox" id="cInvert" class="ui-helper-hidden-accessible"><label for="cInvert" aria-pressed="false" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Invert</span></label><div id="sAmplify" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a class="ui-slider-handle ui-state-default ui-corner-all" href="http://www.grauonline.de/alexwww/ardumower/filter/filter.html#" style="left: 100%;">1</a></div>
-                            Amplify scale (1..100)
-                            <div id="sAmplifyScale" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a class="ui-slider-handle ui-state-default ui-corner-all" href="http://www.grauonline.de/alexwww/ardumower/filter/filter.html#" style="left: 0%;">1</a></div><table cellspacing="0" cellpadding="0">
+    <form id="panelSA1" class="panel" action="#">
+                        <table cellspacing="0" cellpadding="0">
                           <tbody valign="top">
                             
+                            <input type="checkbox" id="cToggle"><label id="lToggle" for="cToggle">Signal is ON</label>
+                            <div class="lSignal">Example signals</div>                                                        
+                            <div id="sSignal"></div>                                                                                                                
                             
-                                                                                    
-                                                                                                                                            
-                            
-                                                        
+                            <br>One signal sample width (of sample rate)                              
+                            <div id="sSampleWidth"></div>                            
                                                                                                                 
-                            
-                                                        
+                            <br>Noise 
+                            <input type="checkbox" id="cNoise"><label for="cNoise">Cycle</label>
+                            <div id="sNoise"></div>                            
 
+                            <br><br>
                             
+                            <div class="lFilter">Example filter</div>
+                            <div id="sFilter"></div>
                             
+                            <br>
+                            <b> - OR - </b>
                             
+                            <br>
+                            <br>New filter bandpass start 
+                            <div id="sFa"></div>
                             
+                            <br>New filter bandpass stop 
+                            <div id="sFb"></div>
                             
+                            <br><br>
                             
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                             
-                            
+                            <br>Amplify (-1..1)
+                            <input type="checkbox" id="cInvert"><label for="cInvert">Invert</label> 
+                            <div id="sAmplify"></div>
+                            Amplify scale (1..100)
+                            <div id="sAmplifyScale"></div>
                                                         
                             
                                                                                   
@@ -812,15 +807,15 @@ importance: 1
         
   </div>
   
-  <div id="blkStat1">Min:-20  Max:20  Avg:0.00  Sum:0  FirstMinMax: 0</div>
-  <div id="blkStat2"><b>Smoothed</b>: Min:-42  Max:59  Avg:6.63  Sum:4641</div>
+  <div id="blkStat1"></div>
+  <div id="blkStat2"></div>
   
   <hr>
   <b>Signal workflow</b><br>  
   The signal is generated by the samples that you define. Noise is added. Optionally, an FIR filter is applied. Finally the matched filter is applied.<br>
-  Samples + Noise  =&gt;  FIR filter  =&gt;  Signal (optional FIR-filtered, amplified)  =&gt;   Matched filter (against samples) <br>    
+  Samples + Noise  =>  FIR filter  =>  Signal (optional FIR-filtered, amplified)  =>   Matched filter (against samples) <br>    
   <br>
-  <img src="./js/matched_filter_principle.png">
+  <img src="/assets/img/matched_filter_principle.png">
   <br><br>  
   
   <b>Help</b><br>
@@ -836,27 +831,29 @@ importance: 1
     
   <b>External links:</b><br>    
   (1) <a href="https://www.youtube.com/watch?v=NIer_kITelc">Matched filter theory (German)</a><br>  
-  (2) <a href="https://grauonline.de/wordpress/?page_id=364">More explanations on the matched filter and this simulator.</a><br>
-  (3) <a href="https://www.grauonline.de/alexwww/ardumower/oscilloscope/oscilloscope.html">Sound card-based oscilloscope (includes matched filter)</a><br>
-  (5) <a href="https://www.radartutorial.eu/10.processing/Matched%20Filter.de.html">Matched Filter in der Nachrichtentechnik.</a><br>
-  (6) <a href="https://www.arc.id.au/FilterDesign.html">FIR filter design</a><br>
-  (7) <a href="https://www.developer.com/java/other/article.php/3487996/Convolution-and-Matched-Filtering-in-Java.htm">Matched filter in Java</a><br>  
+  (2) <a href="http://grauonline.de/wordpress/?page_id=364">More explanations on the matched filter and this simulator.</a><br>
+  (3) <a href="http://www.grauonline.de/alexwww/ardumower/oscilloscope/oscilloscope.html">Sound card-based oscilloscope (includes matched filter)</a><br>
+  (4) <a href="http://vimeo.com/33433158">Video explaining the matched filter visually.</a><br>
+  (5) <a href=" http://www.radartutorial.eu/10.processing/Matched%20Filter.de.html">Matched Filter in der Nachrichtentechnik.</a><br>
+  (6) <a href="http://www.arc.id.au/FilterDesign.html">FIR filter design</a><br>
+  (7) <a href="http://www.developer.com/java/other/article.php/3487996/Convolution-and-Matched-Filtering-in-Java.htm">Matched filter in Java</a><br>  
   
   <br>
   <b>Algorithm (C code)</b><br>
-  <pre>    // matched filter (correlation filter)    
+  <pre>
+    // matched filter (correlation filter)    
     // H[] holds the samples to match, 
     // M = H.length (number of samples in H)
-    // ip[] holds ADC sampled input data (length &gt; nPts + M )
+    // ip[] holds ADC sampled input data (length > nPts + M )
     // op[] is matched filter output buffer
     // nPts is the length of the required output data 
     void corrFilter(int8_t *H, int16_t M, int8_t *ip, int16_t *op, int16_t nPts)
     {  
       int16_t sum = 0;
-      for (int16_t j=0; j &lt; nPts; j++)
+      for (int16_t j=0; j < nPts; j++)
       {
         sum = 0;
-        for (int16_t i = 0; i &lt; M; i++)
+        for (int16_t i = 0; i < M; i++)
         {    
           sum += ((int16_t)H[i]) * ((int16_t)ip[j+i]);
         }
@@ -870,22 +867,22 @@ importance: 1
     int16_t corrFilter(int8_t *H, int16_t M, int8_t *ip, int16_t nPts){  
       int16_t sumMax = 0;
       int16_t sumMin = 0;
-      for (int16_t j=0; j &lt; nPts; j++)
+      for (int16_t j=0; j < nPts; j++)
       {
         int16_t sum = 0;      
         int8_t *Hi = H;
         int8_t *ipi = ip;      
-        for (int16_t i=0; i &lt; M; i++)
+        for (int16_t i=0; i < M; i++)
         {        
           sum += ((int16_t)(*Hi)) * ((int16_t)(*ipi));
           Hi++;
           ipi++;
         }      
-        if (sum &gt; sumMax) sumMax = sum;
-        if (sum &lt; sumMin) sumMin = sum;
+        if (sum > sumMax) sumMax = sum;
+        if (sum < sumMin) sumMin = sum;
         ip++;
       }
-      if (sumMax &gt; -sumMin) return sumMax;
+      if (sumMax > -sumMin) return sumMax;
         else return sumMin;  
     }    
   </pre>    
@@ -893,3 +890,8 @@ importance: 1
    
   <br>
   <br>
+  
+      
+</body>
+</html>
+
