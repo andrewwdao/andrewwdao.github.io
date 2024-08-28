@@ -1,0 +1,897 @@
+<!-- saved from url=(0061)http://www.grauonline.de/alexwww/ardumower/filter/filter.html -->
+
+<html>
+<head>
+  <title>Matched filter simulator (software-based)</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="keywords" content="DSP, Digital Signal Processing, Digital Filter Design, FIR Filter, Matched Filter, Optimum Filter, Optimalfilter" />
+
+
+  <script type="text/javascript" src="/assets/js/matched-filter/Cango-3v33.js"></script>
+  <script type="text/javascript" src="/assets/js/matched-filter/firFilter-08.js"></script>
+  <script type="text/javascript" src="/assets/js/matched-filter/dspUtils-10.js"></script>
+  <script type="text/javascript" src="/assets/js/matched-filter/CangoAxes-0v20.js"></script>
+  
+  <link type="text/css" href="/assets/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />	
+	<script type="text/javascript" src="/assets/js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="/assets/js/jquery-ui-1.8.17.custom.min.js"></script>
+    
+
+  <script type="text/javascript">
+  
+    var signals = [
+      {key: "square_bipolar", value: [1,-1,]},
+      {key: "square_unipolar", value: [1, 0]},
+      {key: "square2", value: [1, 1, -1]},
+      {key: "square3", value: [1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,0,1,-1]},
+      {key: "square4", value: [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,-1]},
+      {key: "square5", value: [1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,1,1,1,-1]},
+      {key: "square6", value: [1,0,1,0,1,0,1,0,1,0,1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,0]},
+      {key: "twofreq", value:[1,-1,1,0]},
+      {key: "pulse1", value:[1,-1,0]},
+      {key: "pulse2", value:[1,-1,1,0,0,0,0,0,0,1,-1,1,0,0,0,0,0,0]},
+      {key: "pulse3", value:[1,-1,0,0,0,0,0,0,0,0]},                
+      {key: "pulse4", value:[1,-1,1,0,0,0,-1,0,0,1,-1,1,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},
+      {key: "pulse5", value:[1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},
+      {key: "pulse6", value:[0.5,0.3,0.2,0.1,-1]},
+      {key: "pulse7", value:[0.2,-0.2,0.2,-0.2,0.2,-0.2,0.2,-0.2,0.2,-0.2,0.2,-0.2,1,-1]},
+      {key: "chirp1", value:[1,1,1,1,-1,-1,-1,-1,1,1,1,-1,-1,-1,1,1,-1,-1,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},                                  
+      {key: "chirp2", value:[1,1,1,1,1,-1,-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1,1,1,1,-1,-1,-1,1,1,-1,-1,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},
+      {key: "chirp3", value:[1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,-1,-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1,1,1,1,-1,-1,-1,1,1,-1,-1,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},      
+      {key: "chirp4", value:[1,-1,0,0,0,0,0,0,0,0,0,0,1,-1,0,0,0,0,0,0,0,0,0,1,-1,0,0,0,0,0,0,0,0,1,-1,0,0,0,0,0,0,0,1,-1,0,0,0,0,0,0,1,-1,0,0,0,0,0,1,-1,0,0,0,0,1,-1,0,0,0,1,-1,0,0,1,-1,0]},
+      {key: "sinus", value:[0,0.5,0.5,1,1,1,1,1,0.5,0.5,0,-0.5,-0.5,-1,-1,-1,-1,-1,-0.5,-0.5]},    
+      {key: "sinus2", value: [0.5,0.5,1,1,1,1,0.5,0.5,-0.5,-0.5,-1,-1,-1,-1,-0.5,-0.5,0.5,1,1,0.5,-0.5,-1,-1,-0.5]},
+      {key: "sawtooth", value:[-1.0,-0.9,-0.8,-0.7,-0.6,-0.5,-0.4,-0.3,-0.2,-0.1,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]},      
+      {key: "pseudonoise4_nrz", value:NRZcode(genPNSequence([1,0,1,1], [0,0,1,1]))},
+      {key: "pseudonoise4_pw",  value: PWcode(genPNSequence([1,0,1,1], [0,0,1,1])) },
+      {key: "pseudonoise4_diff",  value: diffCode(genPNSequence([1,0,1,1], [0,0,1,1])) },      
+      {key: "pseudonoise4_pol",  value:Polcode(genPNSequence([1,0,1,1], [0,0,1,1]))},
+      {key: "pseudonoise4_dbpsk",  value: DBPSK(genPNSequence([1,0,1,1], [0,0,1,1]))},      
+      {key: "pseudonoise5_nrz", value:NRZcode(genPNSequence([1,0,1,0,1], [0,0,1,1,1]))},
+      {key: "pseudonoise5_pw",  value:PWcode(genPNSequence([1,0,1,0,1], [0,0,1,1,1]))},
+      {key: "pseudonoise5_diff",  value:diffCode(genPNSequence([1,0,1,0,1], [0,0,1,1,1]))},
+      {key: "pseudonoise7_nrz", value:NRZcode(genPNSequence([1,1,0,0,0,0,1], [0,1,0,1,0,1,0]))},                        
+      {key: "pseudonoise7_pw",  value:PWcode(genPNSequence([1,1,0,0,0,0,1], [0,1,0,1,0,1,0]))},
+      {key: "barker4",  value: [+1, +1, -1, +1]},
+      {key: "barker5",  value: [+1, +1, +1, -1, +1]},
+      {key: "barker7",  value: [+1, +1, +1, -1, -1, +1, -1]},
+      {key: "barker11", value: [+1, +1, +1, -1, -1, -1, +1, -1, -1, +1, -1]},
+      {key: "barker11_pw", value: PWcode([+1, +1, +1, -1, -1, -1, +1, -1, -1, +1, -1]) },
+      {key: "barker11_dbpsk", value: DBPSK([+1, +1, +1, -1, -1, -1, +1, -1, -1, +1, -1])  },      
+      {key: "barker11_fsk", value: FSK([+1, +1, +1, -1, -1, -1, +1, -1, -1, +1, -1])  },
+      {key: "barker13", value: [+1, +1, +1, +1, +1, -1, -1, +1, +1, -1, +1, -1, +1]},
+      {key: "barker13_pw", value: PWcode([+1, +1, +1, +1, +1, -1, -1, +1, +1, -1, +1, -1, +1])},
+      {key: "liam4", value: [1,1,1,-1,1,-1,-1,-1,1,1,1,-1,1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 ]},
+      {key: "liam4_l298", value: [1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 ]},
+      {key: "liam5", value: [1,0,1,0,1,1,0,-1,-1,0]},                  
+    ];
+    var signalData = [];    
+    var filteredSignalData = [];
+    var matchedSignalData = [];
+    var timer = 0;
+    var noiseGain = 0;
+    var noiseData = [];
+    var amplify = 1.0;
+    var amplifyScale = 1.0;
+    var signalYMax = 1.0;
+    var signalXMax = 500;
+    var FFTbins = 512;    
+    var signalEnable = 1;
+    var sampleWidth = 10;
+    var smoothAvg = 0;
+    var smoothMax = 0;
+    var smoothMin = 0;
+    var smoothSum = 0;
+            
+    var filters = [      
+      {key: "none", value: [1]},
+      {key: "lowpass1", value: [0.5, 0.5]},
+      {key: "highpass1", value:[0.5, -0.5]},
+      {key: "lowpass2", value:[0.25, 0.5, 0.25]},
+      {key: "highpass2", value:[0.25, -0.5, 0.25]},
+      {key: "reject2", value:[0.5, 0, 0.5]},
+      {key: "lowpass8", value:[0.04, 0.08, 0.12, 0.16, 0.2, 0.16, 0.12, 0.08, 0.04]},
+      {key: "lowpass14", value:[0.000777, 0.004739, 0.014119, 0.030198, 0.051642, 0.074051, 0.091211, 0.097656, 0.091211, 0.074051, 0.051642, 0.030198, 0.014119, 0.004739, 0.000777]},      
+    ];
+    var filterCoeff = [];
+    var Fa = 0;
+    var Fb = 50;
+    var sliderAmplify;             
+    var sliderAmplifyScale;    
+    
+
+    if (addLoadEvent === undefined)
+    {
+      var addLoadEvent = function(func)
+      {
+      	var oldonload = window.onload;
+      	if (typeof window.onload != 'function')
+        {
+          window.onload = func;
+        }
+      	else
+        {
+        	window.onload = function(){oldonload();	func();}
+        }
+      }
+    }
+
+    function resetStats(){      
+      smoothAvg = 0;
+      smoothMax = 0;
+      smoothMin = 0;
+      smoothSum = 0;
+    }    
+
+    
+    function onSampleWidthChange(event, ui)
+    {
+      $(ui.handle).html(ui.value);
+      sampleWidth = ui.value;
+      onSignalListChange(event, ui);
+    }    
+    
+    function onNoiseChange(event, ui)
+    {              
+      $(ui.handle).html(ui.value);
+      noiseGain = ui.value;
+      signalYMax = (1 + noiseGain);
+      updateNoise();              
+    }
+    
+    function onToggleCheck(event, ui)
+    {      
+      if (signalEnable == 1) {
+        signalEnable = 0;        
+        $("#lToggle").text("Signal is OFF");
+      }  else {
+        signalEnable = 1;
+        $("#lToggle").text("Signal is ON");        
+      }
+      applyFilters();
+      plotGraphs();
+    }
+    
+    function onNoiseCheck(event, ui)
+    {      
+      if (timer == 0) {
+        timer = window.setInterval(updateNoise, 100);
+      } else {
+        clearInterval(timer);
+        timer = 0;        
+      } 
+    }
+    
+    function onInvertCheck(event, ui)
+    {      
+      sliderAmplify.slider('value', -amplify);
+    }
+    
+    function plotGraphs(){
+      plotSignal();
+      plotMatchedFilter();
+      plotFFT();
+    }
+    
+    function updateNoise(){
+      noiseData = [];
+      for (i=0; i < 1024; i++){
+        noiseData[i] = (Math.random() - 0.5)*noiseGain*2;
+      }
+      applyFilters();
+      plotGraphs();      
+    }
+    
+    function onFilterChange(event, ui)
+    {
+      $(ui.handle).html(ui.value);
+      var no = ui.value; //toFixed(1);      
+      var coeff = filters[no].value;
+      var list = document.getElementById("filterList"); 
+      list.value = coeff.join("\n");
+      $("div.lFilter").text("Example filter (" + filters[no].key + ")");
+      setFilter(coeff);      
+    }
+    
+    
+    function onSignalChange(event, ui)
+    {
+      $(ui.handle).html(ui.value);
+      var no = ui.value; //toFixed(1);      
+      var signal = signals[no].value;
+      var list = document.getElementById("signalList"); 
+      list.value = signal.join("\n");
+      $("div.lSignal").text("Example signals (" + signals[no].key + ")");                  
+      setSignal(signal);      
+    }
+        
+    function setSignal(signal)
+    {                               
+      $("div.lSignalList").text("Signal samples ("+signal.length+")");
+      signalData = [];        
+      for(i=0; i< signal.length; i++)
+      {
+        //data.push(i, Math.sin(i)/i);                
+        for (j=0; j < sampleWidth; j++){
+          signalData.push(signal[i]);
+        }      
+      }
+      signalXMax = Math.max(500, signalData.length*2);          
+      applyFilters();
+      plotGraphs();
+    }
+    
+    function diffCode(seq){
+      var res = [];
+      var last = seq[seq.length-1];
+      for (i=0; i < seq.length; i++){
+        if (seq[i] == last) res.push(0)
+          else {
+            res.push(seq[i]-last);
+            last = seq[i];             
+          }        
+      }
+      return res;      
+    }
+    
+    // first half: data, second half: !data 
+    function machesterCode(seq){
+      var res = [];
+      for (i=0; i < seq.length; i++){
+        res.push(seq[i]);
+        res.push(1-seq[i]);
+      }
+      return res;    
+    }
+    
+    // polarity codes
+    // 1 =>  1,0 
+    // 0 => -1,0 
+    function Polcode(seq){
+      var res = [];
+      for (i=0; i < seq.length; i++){
+        if (seq[i] > 0) {
+          res.push(1);
+          res.push(0);                                        
+        } else {                              
+          res.push(-1);
+          res.push(0);
+        } 
+      }
+      return res; 
+    }
+    
+    // FSK modulation (frequency-shift keying)
+    // http://en.wikipedia.org/wiki/Frequency-shift_keying
+    function FSK(seq){
+      var res = [];      
+      for (i=0; i < seq.length; i++){
+        if (seq[i] > 0) {
+          res.push(1);
+          res.push(-1);
+        } else {
+          res.push(1);
+          res.push(1);
+          res.push(-1);        
+          res.push(-1);
+        }  
+      }
+      return res;      
+    }
+    
+    // DBPSK modulation (binary phase-shift keying)
+    // http://en.wikipedia.org/wiki/Phase-shift_keying#Binary_phase-shift_keying_.28BPSK.29
+    // http://www.itwissen.info/definition/lexikon/DBPSK-differential-binary-phase-shift-keying.html 
+    // 1 => phase change 180 degree
+    // 0 => phase change 0 degree 
+    function DBPSK(seq){
+      var res = [];      
+      var carrier = 1;
+      for (i=0; i < seq.length; i++){
+        if (seq[i] > 0) {
+          // 180 degree phase change
+          carrier *= -1;                              
+        }  
+        res.push(carrier*1.0);                                        
+        res.push(carrier*-1.0);
+        res.push(carrier*-1.0);        
+        res.push(carrier*1.0);
+      }
+      return res;
+    } 
+    
+    
+    // pulse-width codes
+    // 1 => pulse width 2
+    // 0 => pulse width 1 
+    function PWcode(seq){
+      var res = [];
+      var state = 1;
+      for (i=0; i < seq.length; i++){
+        if (seq[i] > 0) {
+          res.push(state);
+          res.push(state);
+          /*res.push(1);
+          res.push(1);
+          res.push(-1);
+          res.push(-1);*/
+        } else {
+          res.push(state);
+          /*res.push(1);
+          res.push(-1);*/          
+        } 
+        state *= -1;                       
+      }
+      return res;
+    } 
+    
+    // non-return to zero codes
+    // 1 =>  1
+    // 0 => -1    
+    function NRZcode(seq){
+      var res = [];
+      for (i=0; i < seq.length; i++){
+        if (seq[i] > 0) res[i] = 1;
+          else res[i] = -1;
+      }
+      return res;
+    } 
+    
+    // pseudo-noise codes
+    // http://www.ni.com/white-paper/4450/en/    
+    // genPNSequence([polynomial c1..cM], [seed D1..DM])
+    // genPNSequence([1,0,0,0,1,0,0,0,0], [0,0,0,0,0,1,0,1,0])
+    function genPNSequence(c,seed){
+      var M = c.length;                                     
+      var register=seed;
+      var output = [];
+      var N = Math.pow(2, M); 
+      for (n=0; n < N-1; n++){
+        sum = 0;
+        for (m=1; m <= M; m++){
+          sum = sum ^ register[m] * c[m];  // modulo-2 adder
+        }
+        register.unshift(sum);
+        output.push( register.pop() ); 
+      } 
+      //alert(output);      
+      return output; 
+    }
+            
+    function setFilter(coeff)
+    {                        
+      var s = "FIR filter (c0";
+      if (coeff.length > 1) s += "..c" + (coeff.length-1);
+      s += ")";
+      $("div.lFilterList").text(s);
+      filterCoeff = coeff;      
+      applyFilters();                  
+      plotGraphs();  
+    }
+    
+    function applyFilters(){
+      applyFilterCoeff();
+      applyMatchedFilter();
+    }
+
+    function applyFilterCoeff(){
+      var ip = [];
+      filteredSignalData = [];
+      var size = Math.max(FFTbins, 2 * signalXMax);
+      for (i=0; i < size; i++){
+        ip[i] = getSignal(i);
+      }       
+      convFilter(filterCoeff, ip, filteredSignalData, size, 1);
+    } 
+    
+    function applyMatchedFilter(){
+      var ip = [];
+      matchedSignalData = [];
+      for (i=0; i < signalXMax + signalData.length; i++){
+        ip[i] = getFilteredSignal(i);
+      }             
+      corrFilter(signalData, ip, matchedSignalData, signalXMax, 1);
+      var min =0;
+      var max = 0;
+      var avg = 0;
+      var sum = 0;
+      var firstMinMax = 0;
+      var ascending = true;       
+      for (i=0; i < signalXMax; i++){
+        min = Math.min(min, matchedSignalData[i]); 
+        max = Math.max(max, matchedSignalData[i]);
+        sum += matchedSignalData[i];
+        if ((ascending) && (i >= 1)){
+          var vc = Math.abs(matchedSignalData[i]);
+          var vcold = Math.abs(matchedSignalData[i-1]);                   
+          if (vc >= vcold){
+            firstMinMax = matchedSignalData[i];             
+          }
+          else ascending = false;
+        }  
+      }      
+      avg = sum / signalXMax;
+      
+      smoothAvg = smoothAvg * 0.95 + avg * 0.05;
+      smoothMin = smoothMin * 0.95 + min * 0.05;
+      smoothMax = smoothMax * 0.95 + max * 0.05;
+      smoothSum = smoothSum * 0.95 + sum * 0.05;    
+                     
+      $("#blkStat1").text("Min:" + Math.round(min) + "  Max:"+ Math.round(max) + "  Avg:" + avg.toFixed(2) + "  Sum:" + Math.round(sum) + "  FirstMinMax: " + Math.round(firstMinMax));
+      $("#blkStat2").html("<b>Smoothed</b>: Min:" + Math.round(smoothMin) + "  Max:"+ Math.round(smoothMax) + "  Avg:" + smoothAvg.toFixed(2) + "  Sum:" + Math.round(smoothSum));
+    }   
+    
+    function onAmplifyChange(event, ui){
+      $(ui.handle).html(ui.value);
+      amplify = parseFloat(ui.value);      
+      applyFilters();
+      plotGraphs();      
+    }
+    
+    function onAmplifyScaleChange(event, ui){
+      $(ui.handle).html(ui.value);
+      amplifyScale = parseFloat(ui.value);      
+      applyFilters();
+      plotGraphs();      
+    }
+    
+    function onSignalListChange(event, ui){
+      var list = document.getElementById("signalList");
+      var v = list.value.split(",").join("\n");
+      var s = v.split("\n");
+      var signal = [];
+      for (i=0; i < s.length; i++) {
+        signal[i] = parseFloat(s[i]);          
+      }
+      resetStats();       
+      setSignal(signal);       
+    }
+    
+    function onFilterListChange(event, ui){      
+      var list = document.getElementById("filterList");
+      var v = list.value;
+      var s = v.split("\n");
+      var coeff = [];
+      for (i=0; i < s.length; i++) {
+        coeff[i] = parseFloat(s[i]);          
+      }       
+      setFilter(coeff);       
+    }
+    
+    function onFbChange(even, ui){
+      $(ui.handle).html(ui.value);
+      Fb = parseFloat(ui.value);
+      setBandpassFilter();      
+    }
+    
+    function onFaChange(even, ui){
+      $(ui.handle).html(ui.value);
+      Fa = parseFloat(ui.value);
+      setBandpassFilter();      
+    }
+    
+    function setBandpassFilter(){
+      var Fs = 1000; //parseFloat(panel.fs.value),
+      // number of coeffs in filter (symetric)
+      var M = 37; //parseFloat(panel.nPts.value),    
+      var Np = (M-1)/2;  // actual munber of coeffs in array
+      var Att = 60; //parseFloat(panel.att.value),
+      //stopBand = panel.fType[3].checked,
+      var coeff = calcFilter(Fs, Fa, Fb, M, Att);
+      var list = document.getElementById("filterList");
+      list.value = coeff.join("\n");
+      setFilter(coeff);      
+    }
+    
+    
+    function plotSignal(){
+      var xmin = 0,
+      xmax = signalXMax,
+      ymin = -signalYMax - 0.1,
+      ymax = signalYMax  + 0.1,      
+      data = [],
+      i;
+            
+      var g = new Cango('grph1'),
+          data, grid;
+      
+      g.fillViewport("#fff");
+      g.setViewport(12, 5, 80, 28);  // data area, units are % of canvas width      
+      g.setWorldCoords(xmin, ymin, xmax-xmin, ymax-ymin);
+      g.setPropertyDefault('strokeColor', 'gray');
+      g.drawXYAxes(0, 0, xmin, xmax, ymin, ymax, "m", null, "X", "Y");
+      // plot
+      g.setPropertyDefault("strokeColor", "red");
+      //data.push(0, 1);
+      for(i=0; i<xmax; i++)
+      {
+        data.push(i, getFilteredSignal(i));
+        //data.push(i, Math.sin(i)/i);                
+        //data.push(i, signalData[i]);
+        //data.push(i+0.9, signalData[i]);
+      } 
+      g.drawPath(data);
+      //printf("val = %4.2f", 3.14159);
+      // bring graphics screen to the front
+      //graphics_on();            
+    }
+    
+    function getSignal(idx){
+      var i = idx % signalData.length;               
+      var j = idx % noiseData.length;      
+      return (signalData[i] * signalEnable + noiseData[j]);
+    }
+    
+    function getFilteredSignal(idx){
+      return Math.min(signalYMax, Math.max(-signalYMax, filteredSignalData[idx] * amplify * amplifyScale));
+    }        
+    
+    function plotMatchedFilter(){
+      var xmin = 0,
+      xmax = signalXMax,                  
+      data = [],
+      i;
+      var ymin = 0;
+      var ymax = 0;
+      for (i=0; i < signalXMax; i++){
+        ymax = Math.max(ymax,  matchedSignalData[i] );
+        ymin = Math.min(ymin,  matchedSignalData[i] ); 
+      }       
+      ymax = Math.max(ymax, 0.00001);                
+            
+      var g = new Cango('grph3'),
+          data, grid;
+      
+      g.fillViewport("#fff");
+      g.setViewport(12, 5, 80, 28);  // data area, units are % of canvas width      
+      g.setWorldCoords(xmin, ymin, xmax-xmin, ymax-ymin);
+      g.setPropertyDefault('strokeColor', 'gray');
+      g.drawXYAxes(0, 0, xmin, xmax, ymin, ymax, "m", null, "X", "Y");
+      // plot
+      g.setPropertyDefault("strokeColor", "red");
+      //data.push(0, 1);
+      for(i=0; i<signalXMax; i++)
+      {
+        data.push(i, matchedSignalData[i]);
+        //data.push(i, Math.sin(i)/i);                
+        //data.push(i, signalData[i]);
+        //data.push(i+0.9, signalData[i]);
+      } 
+      g.drawPath(data);
+    }
+    
+    function plotFFT(){
+    
+      var ar = [];
+      var ai = [];
+      var bins = FFTbins;
+      for (i=0; i < bins; i++)
+      {        
+        ar[i] = getFilteredSignal(i);
+        ai[i] = 0;                
+      }          
+      fft(1, bins, ar, ai);
+      var ymax = 0;
+      for (i=0; i < bins/2; i++){
+        ymax = Math.max(ymax,  Math.sqrt(ar[i]*ar[i] + ai[i]*ai[i]) ); 
+      }
+      
+      ymax = Math.max(ymax, 0.00001);                
+      var xmin = 0,
+      xmax = bins/2,      
+      ymin = 0,            
+      data = [],
+      i;
+            
+      var g = new Cango('grph2'),
+          data, grid;
+      
+      g.fillViewport("#fff");
+      g.setViewport(12, 5, 80, 28);  // data area, units are % of canvas width    
+      g.setWorldCoords(xmin, ymin, xmax-xmin, ymax-ymin);
+      g.setPropertyDefault('strokeColor', 'gray');
+      g.drawXYAxes(0, 0, xmin, xmax, ymin, ymax, "m", null, "X", "Y");
+      // plot
+      g.setPropertyDefault("strokeColor", "red");
+      //data.push(0, 1);
+      for(i=1; i<bins/2-1;i++)
+      {
+        data.push(i, Math.sqrt(ar[i]*ar[i] + ai[i]*ai[i]) );        
+        //data.push(i, ar[i]);
+      } 
+      g.drawPath(data);      
+    }
+     
+        
+  
+    addLoadEvent( function(){  
+      
+      $( "#cNoise" ).button();            
+      $("#cNoise").click(onNoiseCheck);
+   
+      $( "#cToggle" ).button();      
+      $("#cToggle").click(onToggleCheck);
+         
+      $( "#cInvert" ).button();      
+      $("#cInvert").click(onInvertCheck);
+            
+      var sliderSignal = $( "#sSignal" ).slider({
+          range: false,
+          min: 0,
+	        max: signals.length-1,
+	    	  value: 0,
+    	    step:1,
+        	slide:onSignalChange,
+        	change:onSignalChange,
+      });
+      sliderSignal.slider('value', 0);       
+      
+      var sliderSampleWidth = $( "#sSampleWidth" ).slider({
+          range: false,
+          min: 1,
+	        max: 100,
+	    	  value: 0,
+    	    step:1,
+        	slide:onSampleWidthChange,
+        	change:onSampleWidthChange,
+      });
+      sliderSampleWidth.slider('value', 10);       
+      
+      var sliderNoise = $( "#sNoise" ).slider({
+          range: false,
+          min: 0,
+	        max: 10.0,
+	    	  value: 0,
+    	    step:0.1,
+        	slide:onNoiseChange,
+        	change:onNoiseChange,
+      });
+      sliderNoise.slider('value', 0);
+      
+      sliderAmplify = $( "#sAmplify" ).slider({
+          range: false,
+          min: -1,
+	        max: 1,
+	    	  value: 1,
+    	    step:0.1,
+        	slide:onAmplifyChange,
+        	change:onAmplifyChange,
+      });
+      sliderAmplify.slider('value', 1);
+
+      sliderAmplifyScale = $( "#sAmplifyScale" ).slider({
+          range: false,
+          min: 1,
+	        max: 100.0,
+	    	  value: 1,
+    	    step:1,
+        	slide:onAmplifyScaleChange,
+        	change:onAmplifyScaleChange,
+      });
+      sliderAmplifyScale.slider('value', 1);      
+      
+      var sliderFilter = $( "#sFilter" ).slider({
+          range: false,
+          min: 0,
+	        max: filters.length-1,
+	    	  value: 0,
+    	    step:1,
+        	slide:onFilterChange,
+        	change:onFilterChange,
+      });
+      sliderFilter.slider('value', 0);       
+      
+      
+      sliderFa = $( "#sFa" ).slider({
+          range: false,
+          min: 0,
+	        max: 500,
+	    	  value: 0,
+    	    step:1,
+        	slide:onFaChange,
+        	change:onFaChange,
+      });
+      //sliderFa.slider('value', 0);             
+      
+      sliderFb = $( "#sFb" ).slider({
+          range: false,
+          min: 0,
+	        max: 500,
+	    	  value: 0,
+    	    step:1,
+        	slide:onFbChange,
+        	change:onFbChange,
+      });
+      //sliderFb.slider('value', 200);       
+      
+      
+      $("#signalList").bind("keyup",onSignalListChange);
+      $("#filterList").bind("keyup",onFilterListChange);
+      
+      //timer = window.setInterval(updateNoise, 100);      
+      
+            
+    });
+  </script>
+
+</head>
+
+
+<body>  
+   <b>Matched filter simulator </b> <br>
+   This simulator was developed as part of the <a href="http://www.ardumower.de/index.php/en/">Ardumower project</a>. It allows you to try
+   out the matched filter (aka optimum filter) with pre-defined (or your own) sample signals, to add noise to it and finally apply a matched filter against the generated (noisy) signal and your samples.<br><br>  
+   <b>Quick start</b> (you can find more detailed instructions at the bottom)<br>
+   1. Choose an input signal (slider <b>'Example signals'</b> at the right), e.g. choose 'pseudonoise4_nrz'.<br>
+   2. At the left top graph, you can see the generated signal and at the left bottom graph, you can see the matched filter output. <br>
+   3. Now increse noise amplitude to 2.0 (slider <b>'Noise'</b>). You can see how the filter still detects your samples.<br>       
+   <br>
+   Signal (optional FIR-filtered, amplified)
+   
+   <div class="scrnSignal">  
+      <canvas id="grph1" width="550" height="190" ></canvas>
+   </div>
+   
+   FFT  
+   <div class="scrnFFT">
+      <canvas id="grph2" width="550" height="190" ></canvas>
+   </div>
+         
+   Matched filter  
+   <div class="scrnMatch">
+      <canvas id="grph3" width="550" height="190" ></canvas>
+   </div>   
+   
+      
+  <div style="position: absolute; top: 180; left: 550;">
+    <div class="blkTop" style="height:20em">
+      <div class="lSignalList">Signal samples</div>
+      <textarea id="signalList" rows="15" cols="30"></textarea>
+    </div>
+  </div>
+  
+  <div style="position: absolute; top: 480; left: 550;">
+    <div class="blkTop" style="height:20em">
+      <div class="lfilterList">FIR filter</div>
+      <textarea id="filterList" rows="15" cols="30"></textarea>
+    </div>
+  </div>
+  
+  
+  <div style="position: absolute; top: 180; left: 850; width: 300">
+    <form id="panelSA1" class="panel" action="#">
+                        <table cellspacing="0" cellpadding="0">
+                          <tbody valign="top">
+                            
+                            <input type="checkbox" id="cToggle"><label id="lToggle" for="cToggle">Signal is ON</label>
+                            <div class="lSignal">Example signals</div>                                                        
+                            <div id="sSignal"></div>                                                                                                                
+                            
+                            <br>One signal sample width (of sample rate)                              
+                            <div id="sSampleWidth"></div>                            
+                                                                                                                
+                            <br>Noise 
+                            <input type="checkbox" id="cNoise"><label for="cNoise">Cycle</label>
+                            <div id="sNoise"></div>                            
+
+                            <br><br>
+                            
+                            <div class="lFilter">Example filter</div>
+                            <div id="sFilter"></div>
+                            
+                            <br>
+                            <b> - OR - </b>
+                            
+                            <br>
+                            <br>New filter bandpass start 
+                            <div id="sFa"></div>
+                            
+                            <br>New filter bandpass stop 
+                            <div id="sFb"></div>
+                            
+                            <br><br>
+                            
+                            <br>Amplify (-1..1)
+                            <input type="checkbox" id="cInvert"><label for="cInvert">Invert</label> 
+                            <div id="sAmplify"></div>
+                            Amplify scale (1..100)
+                            <div id="sAmplifyScale"></div>
+                                                        
+                            
+                                                                                  
+                        </tbody>
+                      </table>
+    </form>
+    <br>     
+   
+        
+  </div>
+  
+  <div id="blkStat1"></div>
+  <div id="blkStat2"></div>
+  
+  <hr>
+  <b>Signal workflow</b><br>  
+  The signal is generated by the samples that you define. Noise is added. Optionally, an FIR filter is applied. Finally the matched filter is applied.<br>
+  Samples + Noise  =>  FIR filter  =>  Signal (optional FIR-filtered, amplified)  =>   Matched filter (against samples) <br>    
+  <br>
+  <img src="/assets/img/matched_filter_principle.png">
+  <br><br>  
+  
+  <b>Help</b><br>
+  Graph <b>Signal</b>: shows the signal you defined by your signal samples, including any added noise, optionally FIR-filtered<br>
+  Graph <b>FFT</b>: shows the frequency spectrum of the graph signal<br>
+  Graph <b>Matched filter</b>: shows the matched filter output<br><br>
+  
+  Slider <b>Example Signal </b>: allows you to choose a pre-defined signal (signal samples)<br>
+  Slider <b>One sample width</b>: allows you to set the width of one sample<br>
+  Slider <b>Noise </b>: allows you to increase/decrease the added noise amplitude<br>
+  Slider <b>Example filter</b>: allows you to choose a pre-defined FIR filter<br>
+  Slider <b>New filter bandpass start/stop</b>: allows you to generate a FIR bandpass filter<br><br>
+    
+  <b>External links:</b><br>    
+  (1) <a href="https://www.youtube.com/watch?v=NIer_kITelc">Matched filter theory (German)</a><br>  
+  (2) <a href="http://grauonline.de/wordpress/?page_id=364">More explanations on the matched filter and this simulator.</a><br>
+  (3) <a href="http://www.grauonline.de/alexwww/ardumower/oscilloscope/oscilloscope.html">Sound card-based oscilloscope (includes matched filter)</a><br>
+  (4) <a href="http://vimeo.com/33433158">Video explaining the matched filter visually.</a><br>
+  (5) <a href=" http://www.radartutorial.eu/10.processing/Matched%20Filter.de.html">Matched Filter in der Nachrichtentechnik.</a><br>
+  (6) <a href="http://www.arc.id.au/FilterDesign.html">FIR filter design</a><br>
+  (7) <a href="http://www.developer.com/java/other/article.php/3487996/Convolution-and-Matched-Filtering-in-Java.htm">Matched filter in Java</a><br>  
+  
+  <br>
+  <b>Algorithm (C code)</b><br>
+  <pre>
+    // matched filter (correlation filter)    
+    // H[] holds the samples to match, 
+    // M = H.length (number of samples in H)
+    // ip[] holds ADC sampled input data (length > nPts + M )
+    // op[] is matched filter output buffer
+    // nPts is the length of the required output data 
+    void corrFilter(int8_t *H, int16_t M, int8_t *ip, int16_t *op, int16_t nPts)
+    {  
+      int16_t sum = 0;
+      for (int16_t j=0; j < nPts; j++)
+      {
+        sum = 0;
+        for (int16_t i = 0; i < M; i++)
+        {    
+          sum += ((int16_t)H[i]) * ((int16_t)ip[j+i]);
+        }
+        op[j] = sum;      
+      }
+    }
+    
+    
+    // optimized version using pointers
+    // returns: min or max, depending on what is (absolutely) higher
+    int16_t corrFilter(int8_t *H, int16_t M, int8_t *ip, int16_t nPts){  
+      int16_t sumMax = 0;
+      int16_t sumMin = 0;
+      for (int16_t j=0; j < nPts; j++)
+      {
+        int16_t sum = 0;      
+        int8_t *Hi = H;
+        int8_t *ipi = ip;      
+        for (int16_t i=0; i < M; i++)
+        {        
+          sum += ((int16_t)(*Hi)) * ((int16_t)(*ipi));
+          Hi++;
+          ipi++;
+        }      
+        if (sum > sumMax) sumMax = sum;
+        if (sum < sumMin) sumMin = sum;
+        ip++;
+      }
+      if (sumMax > -sumMin) return sumMax;
+        else return sumMin;  
+    }    
+  </pre>    
+      
+   
+  <br>
+  <br>
+  
+      
+</body>
+</html>
+
