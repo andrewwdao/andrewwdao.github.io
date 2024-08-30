@@ -18,7 +18,7 @@ Here are some frequently asked questions. If you have a different question, plea
 
 ---
 
-### After I create a new repository from this template and setup the repo, I get a deployment error. Isn't the website supposed to correctly deploy automatically?
+## After I create a new repository from this template and setup the repo, I get a deployment error. Isn't the website supposed to correctly deploy automatically?
 
 Yes, if you are using release `v0.3.5` or later, the website will automatically and correctly re-deploy right after your first commit. Please make some changes (e.g., change your website info in `_config.yml`), commit, and push. Make sure to follow [deployment instructions](https://github.com/alshedivat/al-folio#deployment). (Relevant issue: [209](https://github.com/alshedivat/al-folio/issues/209#issuecomment-798849211).)
 
@@ -32,7 +32,7 @@ You need to add `CNAME` file to the `master` or `source` branch of your reposito
 
 ### My webpage works locally. But after deploying, it fails to build and throws `Unknown tag 'toc'`. How do I fix that?
 
-Make sure you followed through the [deployment instructions](#deployment) in the previous section. You should have set the deployment branch to `gh-pages`. (Related issue: [1438](https://github.com/alshedivat/al-folio/issues/1438).)
+Make sure you followed through the deployment instructions in the previous section. You should have set the deployment branch to `gh-pages`. (Related issue: [1438](https://github.com/alshedivat/al-folio/issues/1438).)
 
 ---
 
