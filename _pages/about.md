@@ -5,17 +5,18 @@ permalink: /
 subtitle: <a href='https://sites.google.com/view/minh-an-dao'>Current website</a>. Carlton, VIC 3053. It's a leap of faith.
 
 profile:
-  align: right
-  image: andreww.webp
-  image_circular: false # crops the image to make it circular
-  more_info: >
-    <p>Carlton</p>
-    <p>Melbourne, VIC 3053</p>
+    align: right
+    image: andreww.webp
+    image_circular: false # crops the image to make it circular
+    more_info: >
+        <p>Carlton</p>
+        <p>Melbourne, VIC 3053</p>
 
 news: false # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
+
 <p>This webpage is a work in progress - please ignore any irrelevant information.</p>
 
 I am a PhD candidate at the University of Melbourne in the field of wireless communication, currently focused on Integrated Sensing and Communication (ISAC) and Cognitive Radio. I also work part-time as a Support Domain Engineer at Telstra Ltd., working closely with software development and process improvement for device certification activities.
