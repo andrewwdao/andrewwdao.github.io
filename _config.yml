@@ -111,7 +111,7 @@ youtube_id: # your youtube channel id (youtube.com/@<youtube_id>)
 zotero_username: # your zotero username
 
 contact_note: >
-    Please feel free to reach out to me through LinkedIn or email.
+    "It's a leap of faith." - Spiderman (Into the Spider-Verse)
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
@@ -132,7 +132,7 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # -----------------------------------------------------------------------------
 
 blog_name: andrewwdao # blog_name will be displayed in your blog page
-blog_description: a simple whitespace theme for academics
+blog_description: a simple blog that will most likely not to be update anytime soon. # blog_description will be displayed in your blog page
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
 
