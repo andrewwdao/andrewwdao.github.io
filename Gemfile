@@ -27,3 +27,6 @@ group :other_plugins do
     gem 'feedjira'
     gem 'httparty'
 end
+
+# Add the observer gem
+gem 'observer'

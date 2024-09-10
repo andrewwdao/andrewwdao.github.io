@@ -6,7 +6,7 @@ subtitle: <a href='https://sites.google.com/view/minh-an-dao'>Current website</a
 
 profile:
     align: right
-    image: andreww.webp
+    image: andreww.jpg
     image_circular: false # crops the image to make it circular
     more_info: >
         <p>Carlton</p>
