@@ -40,7 +40,7 @@
             "position": "Head Technician",
             "name": "Maker Innovation Space - Can Tho University (MIS-CTU) ",
             "location": "Can Tho, Vietnam",
-            "url": "https://www.telstra.com.au/",
+            "url": "https://mis.ctu.edu.vn/",
             "startDate": "2019",
             "endDate": "2021",
             "highlights": [
@@ -110,7 +110,7 @@
             "date": "2020",
             "awarder": "VinUniversity",
             "url": "https://scholarships.vinuni.edu.vn/our-scholars/",
-            "summary": "The Program awards the scholarships to candidates who study key areas that have the potential to create breakthrough in the development of science and technology in Vietnam."
+            "summary": "The Program awards scholarships to candidates who study key areas that have the potential to create breakthroughs in the development of science and technology in Vietnam."
         }
     ],
     "certificates": [
@@ -154,7 +154,7 @@
             "name": "Management",
             "level": "Professional",
             "icon": "fa-solid fa-hashtag",
-            "keywords": ["Jira", "Confluence", "Office 365"]
+            "keywords": ["Jira - Confluence", "Office 365"]
         },
         {
             "name": "Electronics",
