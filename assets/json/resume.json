@@ -5,7 +5,6 @@
         "image": "",
         "email": "minhan.dao@student.unimelb.edu.au",
         "phone": "+61 457****77",
-        "url": "https://andrewwdao.github.io/",
         "summary": "I am eager for any chance to acquire more knowledge and challenge myself intellectually in the fields of integrated sensing and communication (ISAC), cognitive radio, and embedded systems.",
         "location": {
             "address": "Carlton",
@@ -32,8 +31,8 @@
             "endDate": "now",
             "highlights": [
                 "Define requirements, validate code and supervise cloud servers for the device certification team.",
-                "Improved and simplified workflow and processes and increased projects’ visibility by integrating various tools",
-                "Led agile development processes of the team’s internal tool by adopting DevOps practices and CI/CD pipelines"
+                "Improve and simplifiy workflow and processes and increase projects’ visibility by integrating various tools",
+                "Lead agile development processes of the team’s internal tool by adopting DevOps practices and CI/CD pipelines"
             ]
         },
         {
@@ -48,17 +47,6 @@
                 "Managed a group of 15 technicians, operated equipment, and organised events.",
                 "Operated various machinery and tools such as PCB Milling machine, 3D printer, and Laser cutter."
             ]
-        }
-    ],
-    "volunteer": [
-        {
-            "position": "Student Ambassador",
-            "organization": "Faculty of Engineering and IT (FEIT), The University of Melbourne",
-            "location": "Melbourne, Australia",
-            "url": "https://eng.unimelb.edu.au/students/coursework/progress-your-career/technical-skills-series/salp",
-            "startDate": "2022",
-            "endDate": "2023",
-            "summary": "Promoted engineering and IT programs and assisted in various recruitment events and faculty activities."
         }
     ],
     "education": [
@@ -88,6 +76,17 @@
             "startDate": "2015-09-01",
             "endDate": "2020-06-31",
             "area": "GPA: 3.84/4.00 (Valedictorian)"
+        }
+    ],
+    "volunteer": [
+        {
+            "position": "Student Ambassador",
+            "organization": "Faculty of Engineering and IT (FEIT), The University of Melbourne",
+            "location": "Melbourne, Australia",
+            "url": "https://eng.unimelb.edu.au/students/coursework/progress-your-career/technical-skills-series/salp",
+            "startDate": "2022",
+            "endDate": "2023",
+            "summary": "Promoted engineering and IT programs and assisted in various recruitment events and faculty activities."
         }
     ],
     "awards": [

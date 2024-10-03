@@ -18,7 +18,7 @@
 
     "customizations": {
         "vscode": {
-            "extensions": ["esbenp.prettier-vscode", "sissel.shopify-liquid", "yzhang.markdown-all-in-one"],
+            "extensions": ["esbenp.prettier-vscode", "sissel.shopify-liquid", "yzhang.markdown-all-in-one", "github.vscode-github-actions"],
             "settings": {
                 // use prettier code formatter as default formatter
                 "editor.defaultFormatter": "esbenp.prettier-vscode",
